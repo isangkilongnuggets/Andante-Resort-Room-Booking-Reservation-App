@@ -1,3 +1,4 @@
+/// Category of a bookable listing.
 enum RoomCategory { standard, petFriendly, dayTour }
 
 extension RoomCategoryLabel on RoomCategory {
@@ -13,6 +14,12 @@ extension RoomCategoryLabel on RoomCategory {
   }
 }
 
+/// A single bookable room / package offered by the resort.
+///
+/// This project uses local, hardcoded data (as allowed by the project
+/// guidelines) instead of a remote API, but the shape mirrors what a
+/// real REST response might look like so it would be easy to swap in
+/// a live data source later.
 class Room {
   final String id;
   final String name;
@@ -23,7 +30,7 @@ class Room {
   final String shortDescription;
   final String longDescription;
   final List<String> amenities;
-  final List<String> imageEmojis;
+  final List<String> imageEmojis; // stand-ins for photos (no network assets)
   final double rating;
 
   const Room({

@@ -4,6 +4,12 @@ import '../models/room.dart';
 import '../widgets/room_card.dart';
 import '../theme/app_theme.dart';
 
+/// Screen 2 — Room Listings
+///
+/// Browse rooms filtered by category (Standard / Pet-Friendly / Day Tour)
+/// with availability badges. The grid column count adapts to the
+/// available width (Responsiveness requirement), and each card is
+/// tappable (Gestures requirement) to open the Room Detail screen.
 class RoomListingsScreen extends StatefulWidget {
   const RoomListingsScreen({super.key});
 
@@ -25,8 +31,8 @@ class _RoomListingsScreenState extends State<RoomListingsScreen> {
     final crossAxisCount = width > 900
         ? 4
         : width > 600
-        ? 3
-        : 2;
+            ? 3
+            : 2;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Rooms & Tours')),
@@ -114,4 +120,3 @@ class _CategoryFilterBar extends StatelessWidget {
     );
   }
 }
-

@@ -1,5 +1,11 @@
 import '../models/room.dart';
 
+/// Local, hardcoded "database" of rooms and day-tour packages for the
+/// Andante Resort guest booking prototype. Reflects the resort's actual
+/// offerings as described in the project's Topic Abstract Form: 16 rooms,
+/// swimming pools, sunbeds, dining areas, pet-friendly rooms, free
+/// snorkeling and paddle boarding, and complimentary themed breakfast
+/// (Filipino, Western, Korean) with overnight stays.
 final List<Room> resortRooms = [
   const Room(
     id: 'std-001',
@@ -8,8 +14,7 @@ final List<Room> resortRooms = [
     pricePerNight: 2500,
     maxGuests: 2,
     isAvailable: true,
-    shortDescription:
-        'Cozy overnight room with garden views and free breakfast.',
+    shortDescription: 'Cozy overnight room with garden views and free breakfast.',
     longDescription:
         'A comfortable, air-conditioned room with a queen bed overlooking '
         'the resort garden. Includes complimentary breakfast with rotating '
@@ -126,12 +131,7 @@ final List<Room> resortRooms = [
         'resort without an overnight stay. Includes full-day access to '
         'the swimming pools, sunbeds, and dining area, plus free use of '
         'snorkeling gear along the resort\'s waterfront.',
-    amenities: [
-      'Pool Access',
-      'Sunbeds',
-      'Free Snorkeling Gear',
-      'Dining Access',
-    ],
+    amenities: ['Pool Access', 'Sunbeds', 'Free Snorkeling Gear', 'Dining Access'],
     imageEmojis: ['🏝️', '🏊', '🤿'],
     rating: 4.8,
   ),

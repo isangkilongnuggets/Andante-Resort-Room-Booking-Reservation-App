@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Centralized resort-themed color palette and [ThemeData].
 class AppColors {
   static const Color deepTeal = Color(0xFF0B4F51);
   static const Color teal = Color(0xFF1B7F79);
@@ -46,7 +47,10 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),
-          textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          textStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -63,7 +67,9 @@ class AppTheme {
         color: Colors.white,
         elevation: 2,
         shadowColor: Colors.black.withOpacity(0.15),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -84,10 +90,8 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.danger, width: 1.5),
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
-        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       ),
       textTheme: base.textTheme.apply(
         bodyColor: AppColors.textDark,

@@ -9,11 +9,16 @@ import 'screens/booking_form_screen.dart';
 import 'screens/booking_confirmation_screen.dart';
 
 void main() {
-  runApp(const IslaSerenaApp());
+  runApp(const AndanteResortApp());
 }
 
-class IslaSerenaApp extends StatelessWidget {
-  const IslaSerenaApp({super.key});
+/// Root widget for the Andante Resort guest booking prototype.
+///
+/// Navigation & Routing requirement: 5 named routes wired up through
+/// [onGenerateRoute] so screen-specific arguments (a [Room] or
+/// [BookingDetails]) are passed cleanly between screens.
+class AndanteResortApp extends StatelessWidget {
+  const AndanteResortApp({super.key});
 
   @override
   Widget build(BuildContext context) {

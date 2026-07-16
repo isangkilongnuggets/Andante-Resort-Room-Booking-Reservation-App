@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
+/// Small pill badge that shows whether a room/tour is available.
 class AvailabilityBadge extends StatelessWidget {
   final bool isAvailable;
   const AvailabilityBadge({super.key, required this.isAvailable});

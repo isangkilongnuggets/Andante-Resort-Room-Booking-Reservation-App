@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
+/// Screen 1 — Home / Welcome
+///
+/// Resort branding and a quick overview, with a clear call-to-action to
+/// browse rooms. Uses a responsive layout so the hero section and quick
+/// stats reflow on wider screens (tablets / landscape).
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -152,11 +157,7 @@ class _QuickOverviewRow extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     children: [
-                      Icon(
-                        s.icon,
-                        color: AppColors.coral,
-                        size: isWide ? 30 : 24,
-                      ),
+                      Icon(s.icon, color: AppColors.coral, size: isWide ? 30 : 24),
                       const SizedBox(height: 8),
                       Text(
                         s.label,

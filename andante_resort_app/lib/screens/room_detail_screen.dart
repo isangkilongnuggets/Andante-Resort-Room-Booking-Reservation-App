@@ -3,6 +3,12 @@ import '../models/room.dart';
 import '../theme/app_theme.dart';
 import '../widgets/availability_badge.dart';
 
+/// Screen 3 — Room Detail
+///
+/// Shows photos (swipeable PageView — Gestures requirement), a full
+/// description, price, and amenities. Ends with a "Book Now" CTA that
+/// routes to the Booking Form, passing the selected [Room] as an
+/// argument (Navigation & Data Handling requirements).
 class RoomDetailScreen extends StatefulWidget {
   final Room room;
   const RoomDetailScreen({super.key, required this.room});
@@ -114,7 +120,10 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> {
                   const SizedBox(height: 8),
                   Text(
                     'Max guests: ${room.maxGuests}',
-                    style: const TextStyle(fontSize: 13, color: Colors.black54),
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Colors.black54,
+                    ),
                   ),
                   const SizedBox(height: 28),
                   SizedBox(
@@ -122,10 +131,10 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> {
                     child: ElevatedButton.icon(
                       onPressed: room.isAvailable
                           ? () => Navigator.pushNamed(
-                              context,
-                              '/booking-form',
-                              arguments: room,
-                            )
+                                context,
+                                '/booking-form',
+                                arguments: room,
+                              )
                           : null,
                       icon: const Icon(Icons.event_available),
                       label: Padding(
@@ -167,6 +176,7 @@ class _PhotoGallery extends StatelessWidget {
       height: height,
       child: Stack(
         children: [
+          // Swipe (drag) gesture to move between photos.
           PageView.builder(
             controller: controller,
             onPageChanged: onPageChanged,

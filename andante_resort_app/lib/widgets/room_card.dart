@@ -3,6 +3,7 @@ import '../models/room.dart';
 import '../theme/app_theme.dart';
 import 'availability_badge.dart';
 
+/// A tappable card representing one room/tour in the listings grid.
 class RoomCard extends StatelessWidget {
   final Room room;
   final VoidCallback onTap;
