@@ -3,7 +3,7 @@ import '../models/room.dart';
 import '../theme/app_theme.dart';
 import 'availability_badge.dart';
 
-/// A tappable card representing one room/tour in the listings grid.
+/// Room card widget for listings
 class RoomCard extends StatelessWidget {
   final Room room;
   final VoidCallback onTap;
@@ -19,21 +19,28 @@ class RoomCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 110,
               width: double.infinity,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [AppColors.teal, AppColors.deepTeal],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                room.imageEmojis.first,
-                style: const TextStyle(fontSize: 44),
-              ),
+              child: room.imageAssets.isNotEmpty
+                  ? Image.asset(
+                      room.imageAssets.first,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 110,
+                      errorBuilder: (context, error, stackTrace) => Center(
+                        child: Text(
+                          room.imageEmojis.first,
+                          style: const TextStyle(fontSize: 44),
+                        ),
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        room.imageEmojis.first,
+                        style: const TextStyle(fontSize: 44),
+                      ),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(12),
@@ -71,8 +78,7 @@ class RoomCard extends StatelessWidget {
                   AvailabilityBadge(isAvailable: room.isAvailable),
                   const SizedBox(height: 8),
                   Text(
-                    '₱${room.pricePerNight.toStringAsFixed(0)} '
-                    '${room.category.label == 'Day Tour' ? '/ person' : '/ night'}',
+                    '₱${room.pricePerNight.toStringAsFixed(0)} / night',
                     style: const TextStyle(
                       color: AppColors.coral,
                       fontWeight: FontWeight.w700,

@@ -3,10 +3,7 @@ import 'package:intl/intl.dart';
 import '../models/booking_details.dart';
 import '../theme/app_theme.dart';
 
-/// Screen 5 — Booking Confirmation
-///
-/// Displays a summary of the reservation along with a confirmation
-/// message and a generated confirmation number.
+/// Booking confirmation screen shows reservation details and next actions.
 class BookingConfirmationScreen extends StatelessWidget {
   final BookingDetails booking;
   const BookingConfirmationScreen({super.key, required this.booking});
@@ -67,7 +64,8 @@ class BookingConfirmationScreen extends StatelessWidget {
                       label: 'Nights',
                       value: '${booking.nights == 0 ? 1 : booking.nights}',
                     ),
-                    _SummaryRow(label: 'Guests', value: '${booking.guestCount}'),
+                    _SummaryRow(
+                        label: 'Guests', value: '${booking.guestCount}'),
                     _SummaryRow(label: 'Package', value: booking.package.label),
                     const Divider(height: 28),
                     Row(
@@ -92,6 +90,25 @@ class BookingConfirmationScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 28),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  '/review',
+                  arguments: {
+                    'room': booking.room,
+                    'guestName': booking.guestName,
+                  },
+                ),
+                icon: const Icon(Icons.rate_review_outlined),
+                label: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                  child: Text('Leave a Review'),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
-/// Screen 1 — Home / Welcome
-///
-/// Resort branding and a quick overview, with a clear call-to-action to
-/// browse rooms. Uses a responsive layout so the hero section and quick
-/// stats reflow on wider screens (tablets / landscape).
+/// Home screen and resort navigation entry point.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -41,8 +37,7 @@ class HomeScreen extends StatelessWidget {
                     const Text(
                       'Located in Brgy. Banoyo, San Luis, Batangas, '
                       'Andante Resort offers cozy overnight rooms, '
-                      'pet-friendly accommodations, and day-tour packages '
-                      'complete with free snorkeling and paddle boarding. '
+                      'stylish rooms and suites complete with resort comforts. '
                       'Browse what\'s available and reserve your stay in '
                       'just a few taps.',
                       style: TextStyle(fontSize: 15, height: 1.4),
@@ -58,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                         icon: const Icon(Icons.explore),
                         label: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 4),
-                          child: Text('Browse Rooms & Tours'),
+                          child: Text('Browse Rooms & Suites'),
                         ),
                       ),
                     ),
@@ -141,10 +136,10 @@ class _QuickOverviewRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stats = const [
-      (icon: Icons.hotel, label: '16 Rooms Available'),
-      (icon: Icons.pets, label: 'Pet-Friendly Stays'),
-      (icon: Icons.pool, label: 'Free Snorkeling & SUP'),
+    const stats = [
+      (icon: Icons.king_bed, label: 'Rooms & Suites'),
+      (icon: Icons.beach_access, label: 'Sea View Stays'),
+      (icon: Icons.pool, label: 'Resort Amenities'),
     ];
 
     return Row(
@@ -157,7 +152,8 @@ class _QuickOverviewRow extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     children: [
-                      Icon(s.icon, color: AppColors.coral, size: isWide ? 30 : 24),
+                      Icon(s.icon,
+                          color: AppColors.coral, size: isWide ? 30 : 24),
                       const SizedBox(height: 8),
                       Text(
                         s.label,

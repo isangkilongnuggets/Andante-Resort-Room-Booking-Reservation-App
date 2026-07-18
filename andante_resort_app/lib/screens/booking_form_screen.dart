@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/room.dart';
 import '../models/booking_details.dart';
+import '../services/firestore_service.dart';
 import '../theme/app_theme.dart';
 
-/// Screen 4 — Booking Form
-///
-/// Check-in/out date pickers, a guest-count stepper (tap gesture),
-/// meal package selection, and full form validation (Forms
-/// requirement) before navigating to the Booking Confirmation screen.
+/// Booking form screen handles guest details, stay dates, and booking submission.
 class BookingFormScreen extends StatefulWidget {
   final Room room;
   const BookingFormScreen({super.key, required this.room});
@@ -25,9 +22,17 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
   DateTime? _checkIn;
   DateTime? _checkOut;
   int _guestCount = 1;
-  MealPackage _package = MealPackage.roomOnly;
+  late StayPackage _package;
+  bool _isSubmitting = false;
 
   final _dateFormat = DateFormat('MMM d, yyyy');
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the default stay package when the booking form loads.
+    _package = StayPackage.overnightStay;
+  }
 
   @override
   void dispose() {
@@ -46,7 +51,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
     if (picked != null) {
       setState(() {
         _checkIn = picked;
-        // If checkout is now invalid, clear it so the user re-picks.
+        // Reset check-out if it is not valid after a new check-in date.
         if (_checkOut != null && !_checkOut!.isAfter(_checkIn!)) {
           _checkOut = null;
         }
@@ -72,7 +77,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
     }
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     final formValid = _formKey.currentState?.validate() ?? false;
 
     if (_checkIn == null || _checkOut == null) {
@@ -86,7 +91,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
 
     if (!formValid) return;
 
-    final confirmationNumber = 'ISR-${100000 + Random().nextInt(899999)}';
+    final confirmationNumber = 'AND-${100000 + Random().nextInt(899999)}';
 
     final booking = BookingDetails(
       room: widget.room,
@@ -98,7 +103,24 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
       confirmationNumber: confirmationNumber,
     );
 
-    Navigator.pushNamed(context, '/booking-confirmation', arguments: booking);
+    setState(() => _isSubmitting = true);
+    try {
+      // Send booking details to Firestore and navigate on success.
+      await FirestoreService.instance.submitBooking(booking);
+      if (!mounted) return;
+      Navigator.pushNamed(context, '/booking-confirmation', arguments: booking);
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Could not save your booking to the server. Please try again.',
+          ),
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _isSubmitting = false);
+    }
   }
 
   @override
@@ -108,7 +130,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
     final isWide = width > 700;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Book Your Stay')),
+      appBar: AppBar(title: const Text('Book Your Stay')),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
           horizontal: isWide ? 64 : 20,
@@ -116,6 +138,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
         ),
         child: Form(
           key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -207,29 +230,43 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
               const Text('Package',
                   style: TextStyle(fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
-              ...MealPackage.values.map(
-                (pkg) => RadioListTile<MealPackage>(
-                  contentPadding: EdgeInsets.zero,
-                  value: pkg,
-                  groupValue: _package,
-                  activeColor: AppColors.coral,
-                  title: Text(pkg.label),
-                  subtitle: pkg.extraPerNight > 0
-                      ? Text(
-                          '+₱${pkg.extraPerNight.toStringAsFixed(0)} / night')
-                      : const Text('Included in base price'),
-                  onChanged: (value) => setState(() => _package = value!),
+              RadioGroup<StayPackage>(
+                groupValue: _package,
+                onChanged: (value) => setState(() => _package = value!),
+                child: Column(
+                  children: StayPackage.values
+                      .map(
+                        (pkg) => RadioListTile<StayPackage>(
+                          contentPadding: EdgeInsets.zero,
+                          value: pkg,
+                          activeColor: AppColors.coral,
+                          title: Text(pkg.label),
+                          subtitle: Text(pkg.description),
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: _submit,
-                  icon: const Icon(Icons.check_circle_outline),
-                  label: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4),
-                    child: Text('Confirm Booking Request'),
+                  onPressed: _isSubmitting ? null : _submit,
+                  icon: _isSubmitting
+                      ? const SizedBox(
+                          height: 16,
+                          width: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.2,
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          ),
+                        )
+                      : const Icon(Icons.check_circle_outline),
+                  label: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Text(_isSubmitting
+                        ? 'Saving Booking...'
+                        : 'Confirm Booking Request'),
                   ),
                 ),
               ),
@@ -293,7 +330,7 @@ class _GuestStepper extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.teal.withOpacity(0.25)),
+        border: Border.all(color: AppColors.teal.withValues(alpha: 0.25)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

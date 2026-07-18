@@ -3,12 +3,7 @@ import '../models/room.dart';
 import '../theme/app_theme.dart';
 import '../widgets/availability_badge.dart';
 
-/// Screen 3 — Room Detail
-///
-/// Shows photos (swipeable PageView — Gestures requirement), a full
-/// description, price, and amenities. Ends with a "Book Now" CTA that
-/// routes to the Booking Form, passing the selected [Room] as an
-/// argument (Navigation & Data Handling requirements).
+/// Room detail screen and booking call to action.
 class RoomDetailScreen extends StatefulWidget {
   final Room room;
   const RoomDetailScreen({super.key, required this.room});
@@ -40,7 +35,9 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _PhotoGallery(
-              images: room.imageEmojis,
+              images: room.imageAssets.isNotEmpty
+                  ? room.imageAssets
+                  : room.imageEmojis,
               controller: _pageController,
               currentPage: _currentPage,
               onPageChanged: (i) => setState(() => _currentPage = i),
@@ -78,8 +75,7 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> {
                       Text('${room.rating} · ${room.category.label}'),
                       const Spacer(),
                       Text(
-                        '₱${room.pricePerNight.toStringAsFixed(0)}'
-                        '${room.category.label == 'Day Tour' ? ' / person' : ' / night'}',
+                        '₱${room.pricePerNight.toStringAsFixed(0)} / night',
                         style: const TextStyle(
                           color: AppColors.coral,
                           fontWeight: FontWeight.w800,
@@ -111,7 +107,8 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> {
                         .map(
                           (a) => Chip(
                             label: Text(a),
-                            backgroundColor: AppColors.sand.withOpacity(0.6),
+                            backgroundColor:
+                                AppColors.sand.withValues(alpha: 0.6),
                             side: BorderSide.none,
                           ),
                         )
@@ -176,12 +173,13 @@ class _PhotoGallery extends StatelessWidget {
       height: height,
       child: Stack(
         children: [
-          // Swipe (drag) gesture to move between photos.
+          // Image carousel displaying room photos or emoji placeholders.
           PageView.builder(
             controller: controller,
             onPageChanged: onPageChanged,
             itemCount: images.length,
             itemBuilder: (context, index) {
+              final imagePath = images[index];
               return Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
@@ -191,10 +189,21 @@ class _PhotoGallery extends StatelessWidget {
                   ),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  images[index],
-                  style: const TextStyle(fontSize: 90),
-                ),
+                child: imagePath.startsWith('assets/')
+                    ? Image.asset(
+                        imagePath,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                        errorBuilder: (context, error, stackTrace) => Text(
+                          imagePath,
+                          style: const TextStyle(fontSize: 90),
+                        ),
+                      )
+                    : Text(
+                        imagePath,
+                        style: const TextStyle(fontSize: 90),
+                      ),
               );
             },
           ),
@@ -214,7 +223,7 @@ class _PhotoGallery extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: i == currentPage
                         ? Colors.white
-                        : Colors.white.withOpacity(0.5),
+                        : Colors.white.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),

@@ -4,12 +4,7 @@ import '../models/room.dart';
 import '../widgets/room_card.dart';
 import '../theme/app_theme.dart';
 
-/// Screen 2 — Room Listings
-///
-/// Browse rooms filtered by category (Standard / Pet-Friendly / Day Tour)
-/// with availability badges. The grid column count adapts to the
-/// available width (Responsiveness requirement), and each card is
-/// tappable (Gestures requirement) to open the Room Detail screen.
+/// Room listings screen with category filters and room cards.
 class RoomListingsScreen extends StatefulWidget {
   const RoomListingsScreen({super.key});
 
@@ -18,7 +13,7 @@ class RoomListingsScreen extends StatefulWidget {
 }
 
 class _RoomListingsScreenState extends State<RoomListingsScreen> {
-  RoomCategory? _selectedCategory; // null = "All"
+  RoomCategory? _selectedCategory; // Current room category filter selection.
 
   List<Room> get _filteredRooms {
     if (_selectedCategory == null) return resortRooms;
@@ -35,7 +30,7 @@ class _RoomListingsScreenState extends State<RoomListingsScreen> {
             : 2;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Rooms & Tours')),
+      appBar: AppBar(title: const Text('Rooms & Suites')),
       body: Column(
         children: [
           _CategoryFilterBar(
@@ -47,7 +42,7 @@ class _RoomListingsScreenState extends State<RoomListingsScreen> {
                 ? const Center(child: Text('No listings in this category.'))
                 : RefreshIndicator(
                     onRefresh: () async {
-                      // Simulates re-fetching local data.
+                      // Refresh the listings when the user pulls down.
                       await Future.delayed(const Duration(milliseconds: 400));
                       setState(() {});
                     },
@@ -92,7 +87,7 @@ class _CategoryFilterBar extends StatelessWidget {
     final categories = <RoomCategory?>[null, ...RoomCategory.values];
 
     return Container(
-      color: AppColors.sand.withOpacity(0.5),
+      color: AppColors.sand.withValues(alpha: 0.5),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,

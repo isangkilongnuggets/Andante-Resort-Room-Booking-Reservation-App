@@ -1,38 +1,35 @@
 import 'room.dart';
 
-enum MealPackage { roomOnly, breakfastIncluded, fullBoard }
+/// Booking details model and package helpers.
+enum StayPackage { overnightStay, dayTour }
 
-extension MealPackageLabel on MealPackage {
+extension StayPackageLabel on StayPackage {
   String get label {
     switch (this) {
-      case MealPackage.roomOnly:
-        return 'Room Only';
-      case MealPackage.breakfastIncluded:
-        return 'Breakfast Included';
-      case MealPackage.fullBoard:
-        return 'Full Board (All Meals)';
+      case StayPackage.overnightStay:
+        return 'Overnight Stay Package';
+      case StayPackage.dayTour:
+        return 'Day Tour Package';
     }
   }
 
-  double get extraPerNight {
+  String get description {
     switch (this) {
-      case MealPackage.roomOnly:
-        return 0;
-      case MealPackage.breakfastIncluded:
-        return 350;
-      case MealPackage.fullBoard:
-        return 900;
+      case StayPackage.overnightStay:
+        return 'Room booking with complimentary themed breakfast and pool access.';
+      case StayPackage.dayTour:
+        return 'Day-use access to pools, beach, and resort activities — no overnight room.';
     }
   }
 }
 
-/// Carries the completed booking form data to the confirmation screen.
+/// Booking details record used for reservation confirmation.
 class BookingDetails {
   final Room room;
   final DateTime checkIn;
   final DateTime checkOut;
   final int guestCount;
-  final MealPackage package;
+  final StayPackage package;
   final String guestName;
   final String confirmationNumber;
 
@@ -50,7 +47,6 @@ class BookingDetails {
 
   double get totalCost {
     final effectiveNights = nights == 0 ? 1 : nights;
-    final nightlyTotal = room.pricePerNight + package.extraPerNight;
-    return nightlyTotal * effectiveNights;
+    return room.pricePerNight * effectiveNights;
   }
 }

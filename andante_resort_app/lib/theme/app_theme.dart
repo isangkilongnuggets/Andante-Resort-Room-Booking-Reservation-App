@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// Centralized resort-themed color palette and [ThemeData].
+/// App theme and resort color palette
 class AppColors {
-  static const Color deepTeal = Color(0xFF0B4F51);
-  static const Color teal = Color(0xFF1B7F79);
-  static const Color sand = Color(0xFFF4E3C1);
-  static const Color coral = Color(0xFFE8794A);
-  static const Color cream = Color(0xFFFFFBF2);
-  static const Color textDark = Color(0xFF20302F);
+  static const Color deepTeal = Color(0xFF0F4C81);
+  static const Color teal = Color(0xFF2E6FB3);
+  static const Color sand = Color(0xFFEAF4FF);
+  static const Color coral = Color(0xFF4A90E2);
+  static const Color cream = Color(0xFFF8FBFF);
+  static const Color textDark = Color(0xFF20304A);
   static const Color success = Color(0xFF3C8D5A);
   static const Color danger = Color(0xFFC85450);
 }
@@ -66,7 +66,7 @@ class AppTheme {
       cardTheme: CardThemeData(
         color: Colors.white,
         elevation: 2,
-        shadowColor: Colors.black.withOpacity(0.15),
+        shadowColor: Colors.black.withValues(alpha: 0.15),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
         ),
@@ -76,11 +76,11 @@ class AppTheme {
         fillColor: Colors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.teal.withOpacity(0.3)),
+          borderSide: BorderSide(color: AppColors.teal.withValues(alpha: 0.3)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.teal.withOpacity(0.25)),
+          borderSide: BorderSide(color: AppColors.teal.withValues(alpha: 0.25)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

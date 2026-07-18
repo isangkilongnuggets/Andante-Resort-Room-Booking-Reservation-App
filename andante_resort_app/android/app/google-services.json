@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "662438044608",
+    "project_id": "andante-resort-211b3",
+    "storage_bucket": "andante-resort-211b3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662438044608:android:a75d263909915f60161e25",
+        "android_client_info": {
+          "package_name": "com.example.andante_resort_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcOCqXyWCeN4Ad4-9ZerHesO7xvTIT-YY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

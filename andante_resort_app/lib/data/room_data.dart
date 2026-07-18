@@ -1,160 +1,138 @@
 import '../models/room.dart';
 
-/// Local, hardcoded "database" of rooms and day-tour packages for the
-/// Andante Resort guest booking prototype. Reflects the resort's actual
-/// offerings as described in the project's Topic Abstract Form: 16 rooms,
-/// swimming pools, sunbeds, dining areas, pet-friendly rooms, free
-/// snorkeling and paddle boarding, and complimentary themed breakfast
-/// (Filipino, Western, Korean) with overnight stays.
+/// Local room catalog used by listings and room detail pages.
 final List<Room> resortRooms = [
   const Room(
-    id: 'std-001',
-    name: 'Garden View Standard Room',
-    category: RoomCategory.standard,
-    pricePerNight: 2500,
+    id: 'room-001',
+    name: 'Standard King Room',
+    category: RoomCategory.room,
+    pricePerNight: 5500,
     maxGuests: 2,
     isAvailable: true,
-    shortDescription: 'Cozy overnight room with garden views and free breakfast.',
+    shortDescription:
+        'A bright, restful room with a king bed and comfort essentials.',
     longDescription:
-        'A comfortable, air-conditioned room with a queen bed overlooking '
-        'the resort garden. Includes complimentary breakfast with rotating '
-        'Filipino, Western, and Korean themed dishes, plus free access to '
-        'the swimming pools and sunbeds during your stay.',
+        'A comfortable room designed for couples or solo travelers, featuring '
+        'a king-sized bed, premium linens, and a calm interior with ocean '
+        'views. Enjoy complimentary breakfast and easy access to the pool.',
     amenities: [
+      'King Bed',
       'Air Conditioning',
       'Free Wi-Fi',
       'Complimentary Breakfast',
-      'Pool Access',
     ],
-    imageEmojis: ['🏡', '🛏️', '🌿'],
-    rating: 4.5,
-  ),
-  const Room(
-    id: 'std-002',
-    name: 'Deluxe Poolside Room',
-    category: RoomCategory.standard,
-    pricePerNight: 3800,
-    maxGuests: 3,
-    isAvailable: true,
-    shortDescription: 'Steps away from the pool and sunbed area.',
-    longDescription:
-        'Our most requested overnight room, located just steps from the '
-        'main swimming pool and sunbed lounge area. Features a king-sized '
-        'bed, a private veranda, and complimentary themed breakfast served '
-        'daily at the resort\'s dining area.',
-    amenities: [
-      'Poolside Location',
-      'King Bed',
-      'Free Wi-Fi',
-      'Complimentary Breakfast',
+    imageEmojis: ['🛏️', '🌊', '☀️'],
+    imageAssets: [
+      'assets/images/standard_king_room_1.jpg',
+      'assets/images/standard_king_room_2.jpg',
+      'assets/images/standard_king_room_3.jpg',
+      'assets/images/standard_king_room_4.jpg',
+      'assets/images/standard_king_room_5.jpg',
+      'assets/images/standard_king_room_6.jpg',
+      'assets/images/standard_king_room_7.jpg',
     ],
-    imageEmojis: ['🏊', '🛏️', '🍳'],
-    rating: 4.8,
-  ),
-  const Room(
-    id: 'std-003',
-    name: 'Family Room',
-    category: RoomCategory.standard,
-    pricePerNight: 5500,
-    maxGuests: 6,
-    isAvailable: false,
-    shortDescription: 'Spacious room for families near the dining area.',
-    longDescription:
-        'A spacious overnight room designed for families or barkada '
-        'groups, located close to the resort\'s dining area and swimming '
-        'pools. Includes complimentary themed breakfast for all guests and '
-        'easy access to shared amenities.',
-    amenities: [
-      'Extra Beds Available',
-      'Near Dining Area',
-      'Free Wi-Fi',
-      'Complimentary Breakfast',
-    ],
-    imageEmojis: ['👨‍👩‍👧‍👦', '🛋️', '🍽️'],
-    rating: 4.6,
-  ),
-  const Room(
-    id: 'pet-001',
-    name: 'Pet-Friendly Garden Room',
-    category: RoomCategory.petFriendly,
-    pricePerNight: 3200,
-    maxGuests: 3,
-    isAvailable: true,
-    shortDescription: 'An overnight room where your pet is welcome too.',
-    longDescription:
-        'A ground-floor pet-friendly room with easy outdoor access to the '
-        'garden area. Perfect for guests bringing along their furry '
-        'companions. Includes complimentary themed breakfast and access '
-        'to the resort\'s swimming pools (leashed pets only in common '
-        'areas).',
-    amenities: [
-      'Pet-Friendly',
-      'Ground Floor',
-      'Free Wi-Fi',
-      'Complimentary Breakfast',
-    ],
-    imageEmojis: ['🐾', '🏕️', '🐕'],
     rating: 4.7,
   ),
   const Room(
-    id: 'pet-002',
-    name: 'Pet-Friendly Poolside Cabin',
-    category: RoomCategory.petFriendly,
-    pricePerNight: 4300,
-    maxGuests: 4,
+    id: 'room-002',
+    name: 'Deluxe Room',
+    category: RoomCategory.room,
+    pricePerNight: 6100,
+    maxGuests: 2,
     isAvailable: true,
-    shortDescription: 'Pet-friendly cabin close to the pool and sunbeds.',
+    shortDescription:
+        'Elevated comfort with a private lounge and poolside access.',
     longDescription:
-        'Our premium pet-friendly option, located near the pool and '
-        'sunbed area with a private outdoor space for your pet to relax. '
-        'Includes complimentary themed breakfast and priority seating at '
-        'the dining area.',
+        'Our deluxe room offers more space, a cozy lounge corner, and a '
+        'fresh coastal design. It is well suited for families or guests who '
+        'want a little extra room to unwind after a day at the resort.',
     amenities: [
-      'Pet-Friendly',
-      'Poolside Location',
-      'Private Outdoor Space',
+      'Lounge Corner',
+      'Poolside Access',
+      'Free Wi-Fi',
       'Complimentary Breakfast',
     ],
-    imageEmojis: ['🏖️', '🐶', '🌅'],
-    rating: 4.9,
-  ),
-  const Room(
-    id: 'day-001',
-    name: 'Day Tour: Pool & Beach Access',
-    category: RoomCategory.dayTour,
-    pricePerNight: 500,
-    maxGuests: 10,
-    isAvailable: true,
-    shortDescription: 'Full-day access to the pools, sunbeds, and dining area.',
-    longDescription:
-        'A relaxed day-tour package for visitors who want to enjoy the '
-        'resort without an overnight stay. Includes full-day access to '
-        'the swimming pools, sunbeds, and dining area, plus free use of '
-        'snorkeling gear along the resort\'s waterfront.',
-    amenities: ['Pool Access', 'Sunbeds', 'Free Snorkeling Gear', 'Dining Access'],
-    imageEmojis: ['🏝️', '🏊', '🤿'],
+    imageEmojis: ['🛋️', '🏖️', '🌿'],
+    imageAssets: [
+      'assets/images/deluxe_room_1.jpg',
+      'assets/images/deluxe_room_2.jpg',
+      'assets/images/deluxe_room_3.jpg',
+      'assets/images/deluxe_room_4.jpg',
+      'assets/images/deluxe_room_5.jpg',
+      'assets/images/deluxe_room_6.jpg',
+      'assets/images/deluxe_room_7.jpg',
+      'assets/images/deluxe_room_8.jpg',
+      'assets/images/deluxe_room_9.jpg',
+      'assets/images/deluxe_room_10.jpg',
+    ],
     rating: 4.8,
   ),
   const Room(
-    id: 'day-002',
-    name: 'Day Tour: Snorkel & Paddleboard Adventure',
-    category: RoomCategory.dayTour,
-    pricePerNight: 650,
-    maxGuests: 12,
-    isAvailable: false,
-    shortDescription: 'Guided snorkeling and paddle boarding for the day.',
+    id: 'room-003',
+    name: 'Quadruple Room with Sea View',
+    category: RoomCategory.room,
+    pricePerNight: 7800,
+    maxGuests: 8,
+    isAvailable: true,
+    shortDescription:
+        'A spacious sea-view stay perfect for groups and family getaways.',
     longDescription:
-        'An activity-focused day tour combining free snorkeling and paddle '
-        'boarding sessions along the resort\'s waterfront, plus full access '
-        'to the pools and dining area in between activities. Great for '
-        'groups looking for a more active visit.',
+        'This generous family room features a beautiful sea view, extra beds, '
+        'and ample space for a shared stay. It is ideal for groups looking for '
+        'a comfortable base with resort amenities just steps away.',
     amenities: [
-      'Free Snorkeling',
-      'Free Paddle Boarding',
+      'Sea View',
+      'Extra Beds',
+      'Free Wi-Fi',
       'Pool Access',
-      'Dining Access',
     ],
-    imageEmojis: ['🏄', '🌊', '🤿'],
-    rating: 4.4,
+    imageEmojis: ['👨‍👩‍👧‍👦', '🌅', '🛏️'],
+    imageAssets: [
+      'assets/images/quadruple_room_with_sea_view_1.jpg',
+      'assets/images/quadruple_room_with_sea_view_2.jpg',
+      'assets/images/quadruple_room_with_sea_view_3.jpg',
+      'assets/images/quadruple_room_with_sea_view_4.jpg',
+      'assets/images/quadruple_room_with_sea_view_5.jpg',
+      'assets/images/quadruple_room_with_sea_view_6.jpg',
+      'assets/images/quadruple_room_with_sea_view_7.jpg',
+      'assets/images/quadruple_room_with_sea_view_8.jpg',
+      'assets/images/quadruple_room_with_sea_view_9.jpg',
+      'assets/images/quadruple_room_with_sea_view_10.jpg',
+      'assets/images/quadruple_room_with_sea_view_11.jpg',
+      'assets/images/quadruple_room_with_sea_view_12.jpg',
+      'assets/images/quadruple_room_with_sea_view_13.jpg',
+      'assets/images/quadruple_room_with_sea_view_14.jpg',
+    ],
+    rating: 4.9,
+  ),
+  const Room(
+    id: 'suite-001',
+    name: 'Family Suite',
+    category: RoomCategory.suite,
+    pricePerNight: 8900,
+    maxGuests: 4,
+    isAvailable: true,
+    shortDescription:
+        'A premium suite with a separate lounge area for family comfort.',
+    longDescription:
+        'The family suite brings together premium design, a private lounge, '
+        'and enough space for the whole family to settle in comfortably. '
+        'Enjoy a more elevated stay with resort breakfast and easy pool access.',
+    amenities: [
+      'Separate Lounge',
+      'Family Friendly',
+      'Free Wi-Fi',
+      'Complimentary Breakfast',
+    ],
+    imageEmojis: ['🏡', '🛋️', '👨‍👩‍👧‍👦'],
+    imageAssets: [
+      'assets/images/family_suite_1.jpg',
+      'assets/images/family_suite_2.jpg',
+      'assets/images/family_suite_3.jpg',
+      'assets/images/family_suite_4.jpg',
+      'assets/images/family_suite_5.jpg',
+      'assets/images/family_suite_6.jpg',
+    ],
+    rating: 4.9,
   ),
 ];
