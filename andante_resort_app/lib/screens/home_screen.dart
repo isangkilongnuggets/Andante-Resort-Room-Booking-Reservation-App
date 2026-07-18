@@ -11,40 +11,50 @@ class HomeScreen extends StatelessWidget {
     final isWide = width > 600;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _HeroBanner(isWide: isWide),
-              Padding(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _HeroBanner(isWide: isWide),
+            Expanded(
+              child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: isWide ? 48 : 20,
-                  vertical: 24,
+                  vertical: 28,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Welcome to Andante Resort',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.deepTeal,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Welcome to Andante Resort',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.deepTeal,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            const Text(
+                              'Located in Brgy. Banoyo, San Luis, Batangas, '
+                              'Andante Resort offers cozy overnight rooms, '
+                              'stylish rooms and suites complete with resort comforts. '
+                              'Browse what\'s available and reserve your stay in '
+                              'just a few taps.',
+                              style: TextStyle(fontSize: 15, height: 1.4),
+                            ),
+                            const SizedBox(height: 28),
+                            _QuickOverviewRow(isWide: isWide),
+                          ],
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Located in Brgy. Banoyo, San Luis, Batangas, '
-                      'Andante Resort offers cozy overnight rooms, '
-                      'stylish rooms and suites complete with resort comforts. '
-                      'Browse what\'s available and reserve your stay in '
-                      'just a few taps.',
-                      style: TextStyle(fontSize: 15, height: 1.4),
-                    ),
-                    const SizedBox(height: 24),
-                    _QuickOverviewRow(isWide: isWide),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 20),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
@@ -60,8 +70,8 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -75,11 +85,12 @@ class _HeroBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: isWide ? 260 : 200,
+      height: isWide ? 300 : 240,
       width: double.infinity,
+      clipBehavior: Clip.antiAlias,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [AppColors.deepTeal, AppColors.teal],
+          colors: [Color(0xFF0B4F6C), Color(0xFF1E88E5)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -87,27 +98,33 @@ class _HeroBanner extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(
-            top: 20,
-            right: 24,
-            child: Opacity(
-              opacity: 0.25,
-              child: Text('🌴', style: TextStyle(fontSize: isWide ? 90 : 60)),
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 24,
-            child: Opacity(
-              opacity: 0.25,
-              child: Text('🌊', style: TextStyle(fontSize: isWide ? 90 : 60)),
-            ),
-          ),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('🏝️', style: TextStyle(fontSize: 46)),
-              const SizedBox(height: 8),
+              Container(
+                width: isWide ? 110 : 86,
+                height: isWide ? 110 : 86,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 3),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/images/logo.jpg',
+                    width: isWide ? 110 : 86,
+                    height: isWide ? 110 : 86,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
               Text(
                 'ANDANTE RESORT',
                 style: TextStyle(
@@ -117,7 +134,7 @@ class _HeroBanner extends StatelessWidget {
                   letterSpacing: 1.2,
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 8),
               const Text(
                 'San Luis, Batangas — your escape, one tap away',
                 style: TextStyle(color: AppColors.sand, fontSize: 14),
@@ -154,7 +171,7 @@ class _QuickOverviewRow extends StatelessWidget {
                     children: [
                       Icon(s.icon,
                           color: AppColors.coral, size: isWide ? 30 : 24),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Text(
                         s.label,
                         textAlign: TextAlign.center,
